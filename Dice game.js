@@ -1,86 +1,78 @@
 // Dice game
 
-const firstGamer = document.getElementById("first--gamer");
-const secondGamer = document.getElementById("second--gamer");
+const firstGamer = document.getElementById("0--gamer");
+const secondGamer = document.getElementById("1--gamer");
 const newGameBtn = document.getElementById("newGame--btn");
 const diceImgItem = document.getElementById("dice-img--item");
 const RollDiceBtn = document.getElementById("RollDice--btn");
 const HoldBtn = document.getElementById("Hold--btn");
 
-let gamerCurrent = 0;
-let activePlayer = 1;
-RollDiceBtn.addEventListener("click", () => {
-  diceImgItem.style.display = "block";
-  let randomImgItem = Math.trunc(Math.random() * 6 + 1);
-  diceImgItem.src = `./dice-${randomImgItem}.png`;
+function swithPlayer() {
+  gamerCurrent = 0;
+  document.getElementById(`gamer-${activePlayer}--current`).textContent =
+    gamerCurrent;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  firstGamer.classList.toggle("active");
+  secondGamer.classList.toggle("active");
+}
 
-  if (randomImgItem !== 1) {
-    gamerCurrent += randomImgItem;
-    document.getElementById(`gamer-${activePlayer}--current`).textContent =
-      gamerCurrent;
-  } else {
-    gamerCurrent = 0;
-    document.getElementById(`gamer-${activePlayer}--current`).textContent =
-      gamerCurrent;
-    activePlayer = activePlayer === 1 ? 2 : 1;
-    firstGamer.classList.toggle("active");
-    secondGamer.classList.toggle("active");
+let gamerCurrent = 0;
+let activePlayer = 0;
+let gameOver = true;
+
+RollDiceBtn.addEventListener("click", () => {
+  if (gameOver) {
+    diceImgItem.style.display = "block";
+    let randomImgItem = Math.trunc(Math.random() * 6 + 1);
+    diceImgItem.src = `./dice-${randomImgItem}.png`;
+
+    if (randomImgItem !== 1) {
+      gamerCurrent += randomImgItem;
+      document.getElementById(`gamer-${activePlayer}--current`).textContent =
+        gamerCurrent;
+    } else {
+      swithPlayer();
+    }
   }
 });
 
-let gamerScore = 0;
-let gamer2Score = 0;
+let gamerScore = [0, 0];
 HoldBtn.addEventListener("click", () => {
-  if (activePlayer === 1) {
-    gamerScore += gamerCurrent;
-    document.getElementById("gamer-1--score").textContent = gamerScore;
-    gamerCurrent = 0;
-    document.getElementById(`gamer-1--current`).textContent = 0;
-  } else {
-    gamer2Score += gamerCurrent;
-    document.getElementById("gamer-2--score").textContent = gamer2Score;
-    gamerCurrent = 0;
-    document.getElementById(`gamer-2--current`).textContent = 0;
-  }
-  if (gamerScore >= 100) {
-    firstGamer.classList.add("win");
-    RollDiceBtn.disabled = "true";
-    HoldBtn.disabled = "true";
-  } else if (gamer2Score >= 100) {
-    secondGamer.classList.add("win");
-    RollDiceBtn.disabled = "true";
-    HoldBtn.disabled = "true";
+  if (gameOver) {
+    gamerScore[activePlayer] += gamerCurrent;
+    document.getElementById(`gamer-${activePlayer}--score`).textContent =
+      gamerScore[activePlayer];
+
+    if (gamerScore[activePlayer] >= 20) {
+      gameOver = false;
+      document.getElementById(`${activePlayer}--gamer`).classList.add("win");
+    } else {
+      swithPlayer();
+    }
   }
 });
 
 newGameBtn.addEventListener("click", () => {
-  gamerScore = 0;
-  document.getElementById("gamer-1--score").textContent = 0;
-  gamer2Score = 0;
-  document.getElementById("gamer-2--score").textContent = 0;
+  gamerScore = [0, 0];
+  document.getElementById(`gamer-0--score`).textContent = 0;
+  document.getElementById(`gamer-1--score`).textContent = 0;
   gamerCurrent = 0;
+  document.getElementById(`gamer-0--current`).textContent = 0;
   document.getElementById(`gamer-1--current`).textContent = 0;
-  gamerCurrent = 0;
-  document.getElementById(`gamer-2--current`).textContent = 0;
 
+  gameOver = true;
+  document.getElementById(`${activePlayer}--gamer`).classList.remove("win");
   firstGamer.classList.add("active");
   secondGamer.classList.remove("active");
-  firstGamer.classList.remove("win");
-  secondGamer.classList.remove("win");
   RollDiceBtn.disabled = "";
   HoldBtn.disabled = "";
   diceImgItem.style.display = "none";
 
   if (randomImgItem !== 1) {
     gamerCurrent += randomImgItem;
-    document.getElementById(`gamer-1--current`).textContent =
-      gamerCurrent;
-  } else {
-    gamerCurrent = 0;
     document.getElementById(`gamer-${activePlayer}--current`).textContent =
       gamerCurrent;
-    activePlayer = activePlayer === 2 ? 1 : 2;
-    firstGamer.classList.toggle("active");
-    secondGamer.classList.toggle("active");
+  } else {
+    swithPlayer();
   }
 });
