@@ -53,6 +53,7 @@ HoldBtn.addEventListener("click", () => {
 });
 
 newGameBtn.addEventListener("click", () => {
+  diceImgItem.style.display = "none";
   gamerScore = [0, 0];
   gamerCurrent = 0;
   activePlayer = 0;
