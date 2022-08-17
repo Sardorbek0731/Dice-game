@@ -116,3 +116,9 @@ body {
 .win {
     background-color: rgb(0, 193, 113);
 }
+
+@media only screen and (max-width: 1400px) {
+  html {
+    font-size: 13px;
+  }
+}
