@@ -43,7 +43,7 @@ HoldBtn.addEventListener("click", () => {
     document.getElementById(`gamer-${activePlayer}--score`).textContent =
       gamerScore[activePlayer];
 
-    if (gamerScore[activePlayer] >= 20) {
+    if (gamerScore[activePlayer] >= 100) {
       gameOver = false;
       document.getElementById(`${activePlayer}--gamer`).classList.add("win");
     } else {
@@ -54,25 +54,15 @@ HoldBtn.addEventListener("click", () => {
 
 newGameBtn.addEventListener("click", () => {
   gamerScore = [0, 0];
+  gamerCurrent = 0;
+  activePlayer = 0;
+  gameOver = true;
   document.getElementById(`gamer-0--score`).textContent = 0;
   document.getElementById(`gamer-1--score`).textContent = 0;
-  gamerCurrent = 0;
   document.getElementById(`gamer-0--current`).textContent = 0;
   document.getElementById(`gamer-1--current`).textContent = 0;
-
-  gameOver = true;
-  document.getElementById(`${activePlayer}--gamer`).classList.remove("win");
-  firstGamer.classList.add("active");
-  secondGamer.classList.remove("active");
-  RollDiceBtn.disabled = "";
-  HoldBtn.disabled = "";
-  diceImgItem.style.display = "none";
-
-  if (randomImgItem !== 1) {
-    gamerCurrent += randomImgItem;
-    document.getElementById(`gamer-${activePlayer}--current`).textContent =
-      gamerCurrent;
-  } else {
-    swithPlayer();
-  }
+  document.getElementById(`0--gamer`).classList.remove("win");
+  document.getElementById(`1--gamer`).classList.remove("win");
+  document.getElementById(`0--gamer`).classList.add("active");
+  document.getElementById(`1--gamer`).classList.remove("active");
 });
