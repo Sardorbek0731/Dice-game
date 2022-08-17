@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="Dice game.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="first--gamer" class="first_gamer active">
+        <div class="player_title">
+          <h1>Player 1</h1>
+        </div>
+        <h1 id="gamer-1--score" class="gamerScore">0</h1>
+        <div class="current">
+          <h2 class="current_title">Current</h2>
+          <h1 id="gamer-1--current">0</h1>
+        </div>
+      </div>
+      <div id="second--gamer" class="second_gamer">
+        <div class="player_title">
+          <h1>Player 2</h1>
+        </div>
+        <h1 id="gamer-2--score" class="gamerScore">0</h1>
+        <div class="current">
+          <h2 class="current_title">Current</h2>
+          <h1 id="gamer-2--current">0</h1>
+        </div>
+      </div>
+      <button type="button" id="newGame--btn" class="newGame_btn">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <h1>New Game</h1>
+      </button>
+      <div class="dice_img">
+        <img id="dice-img--item" src="./image/dice-3.png" alt="Dice image" />
+      </div>
+      <button type="button" id="RollDice--btn" class="rollDice_btn">
+        🎲
+        <h1>Roll Dice</h1>
+      </button>
+      <button type="button" id="Hold--btn" class="holdBtn">
+        📥
+        <h1>Hold Score</h1>
+      </button>
+    </div>
+    <script src="./Dice game.js"></script>
+  </body>
+</html>
